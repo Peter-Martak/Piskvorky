@@ -74,8 +74,8 @@ public class Main {
                 }
 
                 //overenie vitaza v riadku
-                for (char[] znak : hraciaPlocha) {
-                    if (znak[0] == hraciZnak && znak[1] == hraciZnak && znak[2] == hraciZnak) {
+                for (char[] riadok : hraciaPlocha) {
+                    if (riadok[0] == hraciZnak && riadok[1] == hraciZnak && riadok[2] == hraciZnak) {
                         System.out.println("Vyhral hráč: " + hracKtoryJeNaTahu);
                         vitaz = true;
                     }
