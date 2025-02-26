@@ -42,32 +42,17 @@ public class Main {
                         vykresliPolePoVlozeniZnaku(hraciaPlocha);
                     }
 
+                    // overenie vitaza
+                    vitaz = overVitazaVRiadku(hraciaPlocha,hraciZnak,hrac,vitaz);
+                    vitaz = overVitazaVStlpci(hraciaPlocha,hraciZnak,hrac,vitaz);
+                    vitaz = overVitazaDiagonalne(hraciaPlocha,hraciZnak,hrac,vitaz);
 
-                //overenie vitaza v riadku
-                for (char[] riadok : hraciaPlocha) {
-                    if (riadok[0] == hraciZnak && riadok[1] == hraciZnak && riadok[2] == hraciZnak) {
-                        System.out.println("Vyhral hráč: " + hrac);
-                        vitaz = true;
-                    }
-                }
-                //overenie vitaza v stlpci
-                for (int i = 0; i < hraciaPlocha.length; i++) {
-                    if (hraciaPlocha[0][i] == hraciZnak && hraciaPlocha[1][i] == hraciZnak && hraciaPlocha[2][i] == hraciZnak) {
-                        System.out.println("Vyhral hráč: " + hrac);
-                        vitaz = true;
-                    }
-                }
-
-                //overenie vitaza diagonalne
-                if (hraciaPlocha[0][0] == hraciZnak && hraciaPlocha[1][1] == hraciZnak && hraciaPlocha[2][2] == hraciZnak
-                        || hraciaPlocha[2][0] == hraciZnak && hraciaPlocha[1][1] == hraciZnak && hraciaPlocha[0][2] == hraciZnak) {
-                    System.out.println("Vyhral hráč: " + hrac);
-                    vitaz = true;
-                }
                 //overenie remizy
+                if (!vitaz){
                 if (overRemizu(hraciaPlocha)) {
                     System.out.println("Hra skončíla remízou");
                     break;
+                }
                 }
 
                 hrac = (hrac == 'X') ? 'O' : 'X';
@@ -79,6 +64,35 @@ public class Main {
                 scanner.nextLine();
             }
         }
+    }
+
+    public static boolean overVitazaDiagonalne(char[][] hraciaPlocha, char hraciZnak, char hrac, boolean vitaz){
+        if (hraciaPlocha[0][0] == hraciZnak && hraciaPlocha[1][1] == hraciZnak && hraciaPlocha[2][2] == hraciZnak
+                || hraciaPlocha[2][0] == hraciZnak && hraciaPlocha[1][1] == hraciZnak && hraciaPlocha[0][2] == hraciZnak) {
+            System.out.println("Vyhral hráč: " + hrac);
+            vitaz = true;
+        }
+        return vitaz;
+    }
+
+    public static boolean overVitazaVStlpci(char[][] hraciaPlocha, char hraciZnak, char hrac, boolean vitaz){
+        for (int i = 0; i < hraciaPlocha.length; i++) {
+            if (hraciaPlocha[0][i] == hraciZnak && hraciaPlocha[1][i] == hraciZnak && hraciaPlocha[2][i] == hraciZnak) {
+                System.out.println("Vyhral hráč: " + hrac);
+                vitaz = true;
+            }
+        }
+        return vitaz;
+    }
+
+    public static boolean overVitazaVRiadku(char[][] hraciaPlocha, char hraciZnak, char hrac, boolean vitaz){
+        for (char[] riadok : hraciaPlocha) {
+            if (riadok[0] == hraciZnak && riadok[1] == hraciZnak && riadok[2] == hraciZnak) {
+                System.out.println("Vyhral hráč: " + hrac);
+                vitaz = true;
+            }
+        }
+        return vitaz;
     }
 
     private static boolean overRemizu(char[][] pole) {
